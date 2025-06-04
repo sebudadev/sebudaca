@@ -13,7 +13,7 @@ const pages = {
 
 const externalPages = {
   github: {
-    default: 'https://github.com/titaniumnetwork-dev/Ultraviolet-App',
+    default: 'https://github.com/sebudadev/sebudaca',
   },
 };
 

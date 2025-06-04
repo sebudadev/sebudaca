@@ -1,0 +1,12 @@
+{
+  "rewrites": [
+    { "source": "/search", "destination": "/search.html" },
+    { "source": "/ai", "destination": "/ai.html" },
+    { "source": "/settings", "destination": "/settings.html" },
+    { "source": "/apps", "destination": "/apps.html" },
+    { "source": "/newtosite", "destination": "/newtosite.html" },
+    { "source": "/games", "destination": "/games.html" }
+  ],
+  "cleanUrls": true,
+  "trailingSlash": false
+}
