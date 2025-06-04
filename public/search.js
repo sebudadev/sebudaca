@@ -3,7 +3,7 @@
 /**
  * Convert input to a fully qualified URL or search query.
  * @param {string} input
- * @param {string} template - Template for search query (e.g., "https://www.google.com/search?q=%s")
+ * @param {string} template - Template for search query (e.g., "https://www.duckduckgo.com/search?q=%s")
  * @returns {string} URL or search string
  */
 function search(input, template) {
@@ -36,7 +36,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const query = searchInput.value.trim();
         if (!query) return;
 
-        const destination = search(query, "https://www.google.com/search?q=%s");
+        const destination = search(query, "https://www.duckduckgo.com/search?q=%s");
         iframe.src =
           window.__uv$config.prefix + window.__uv$config.encodeUrl(destination);
       }

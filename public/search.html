@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no" />
     <title>sebudaca | Search</title>
     <link rel="stylesheet" href="index.css" />
+    <link rel="icon" type="image/x-icon" href="/public/globe-with-meridians-emoji-1024x1024-nntfxojt (1).png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
       * {
@@ -81,9 +82,9 @@
         top: 20px;
         left: 50%;
         transform: translateX(-50%);
-        background-color: #1111119c;
+        background-color: #42424205;
         backdrop-filter: blur(10px);
-        border: 1px solid #ffffff1a;
+        border: 1px solid #ffffff5b;
         width: 900px;
         max-width: 98vw;
         display: block;
@@ -120,7 +121,7 @@
         align-items: center;
       }
       .nav-buttons a:hover, .nav-buttons a.active {
-        background: #5e81ac;
+        background: #3b3b3bb7;
         color: #fff;
         font-size: 1.18em;
       }
@@ -131,7 +132,7 @@
       .small-searchbar {
         display: flex;
         align-items: center;
-        background: #434c5e;
+        background: #555555b2;
         border-radius: 1.2em;
         padding: 0.2em 0.7em;
         min-width: 228px;
@@ -223,7 +224,6 @@
           </div>
         </li>
         <li><a href="index.html" title="Home"><i class="fa-solid fa-house"></i></a></li>
-        <li><a href="games.html" title="Games"><i class="fa-solid fa-gamepad"></i></a></li>
         <li><a href="apps.html" title="Apps"><i class="fa-solid fa-th"></i></a></li>
         <li><a id="erudaIcon" href="#" title="Dev Tools"><i class="fa-solid fa-code"></i></a></li>
       </ul>
@@ -369,8 +369,90 @@ document.addEventListener('DOMContentLoaded', function() {
       updateLockIcon(searchInput.value.trim());
     });
   }
+
+  // When a search is performed:
+  function doSearch(query) {
+    // ...your search logic...
+    // Update the URL without reloading the page
+    history.pushState({ query }, '', '?q=' + encodeURIComponent(query));
+  }
+
+  // Listen for back/forward navigation
+  window.addEventListener('popstate', function(event) {
+    // event.state contains the state object passed to pushState
+    const params = new URLSearchParams(window.location.search);
+    const query = params.get('q') || '';
+    // Re-run your search logic with the query from the URL
+    doSearch(query);
+  });
+
+  // On page load, check if there's a query in the URL
+  window.addEventListener('DOMContentLoaded', function() {
+    const params = new URLSearchParams(window.location.search);
+    const query = params.get('q');
+    if (query) {
+      doSearch(query);
+    }
+  });
 });
     </script>
     <script src="search-nav.js"></script>
+    <script>
+// Prevent inspect element and send Discord webhook if attempted
+(function() {
+  // Discord webhook URL (replace with your own)
+  const WEBHOOK_URL = "https://discord.com/api/webhooks/1379290880397021204/yeKBG24__YemcjSSpOMf5hZ8_DdDw5jocu3FKGzmR8LPKULxiaHIaxh163zWHcDKhLYi";
+
+  // Show warning toast or alert
+  function showInspectWarning() {
+    alert("Inspect Element is disabled for security reasons.");
+  }
+
+  // Send webhook with basic info
+  function sendWebhook(reason) {
+    fetch(WEBHOOK_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        content: `Inspect Element attempt detected!\nReason: ${reason}\nUser Agent: ${navigator.userAgent}\nPage: ${window.location.href}`
+      })
+    });
+  }
+
+  // Block F12, Ctrl+Shift+I, Ctrl+Shift+C, Ctrl+U, right-click
+  document.addEventListener("keydown", function(e) {
+    if (
+      e.key === "F12" ||
+      (e.ctrlKey && e.shiftKey && (e.key === "I" || e.key === "C" || e.key === "J")) ||
+      (e.ctrlKey && e.key === "U")
+    ) {
+      e.preventDefault();
+      showInspectWarning();
+      sendWebhook("Keydown: " + e.key);
+      return false;
+    }
+  });
+
+  // Block right-click
+  document.addEventListener("contextmenu", function(e) {
+    e.preventDefault();
+    showInspectWarning();
+    sendWebhook("Right-click");
+    return false;
+  });
+
+  // Block DevTools open via resize (optional, not 100% reliable)
+  let threshold = 160;
+  setInterval(function() {
+    if (
+      window.outerWidth - window.innerWidth > threshold ||
+      window.outerHeight - window.innerHeight > threshold
+    ) {
+      showInspectWarning();
+      sendWebhook("DevTools opened (resize detected)");
+    }
+  }, 1000);
+})();
+    </script>
   </body>
 </html>

@@ -1,12 +1,18 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap");
 
+html, body {
+  height: 5px;
+  margin: 0.1px;
+  padding: 0px;
+}
+
 body {
   font-family: "Roboto", Arial, Helvetica, sans-serif;
-  margin: 0;
-  background: #111;
+  margin: 0px;
+  background: #141414;
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
+  min-height: 2px;
 }
 
 .fa-magnifying-glass {
@@ -30,7 +36,7 @@ body {
 .header-center {
   align-items: center;
   flex-direction: column;
-  margin-top: 10%;
+  margin-top: 0;
 }
 
 .left-margin {
@@ -56,7 +62,7 @@ body {
   border: none;
   border-radius: 6px;
   padding: 16px 20px;
-  line-height: 16px;
+  line-height: 11px;
   display: none;
 }
 
@@ -86,17 +92,21 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 1.1em;
+  margin-bottom: 0.5em;
 }
 
 footer {
   margin-top: auto;
   width: 93%;
   align-self: center;
-  height: 80px;
+  height: 84px;
   display: flex;
-  justify-content: left;
+  justify-content: center;
   align-items: center;
+  gap: 1em;
+  padding: 1.8em 0 1.5em 0;
+  background: none;
+  border: none;
 }
 
 footer a,
@@ -108,16 +118,47 @@ footer span {
 }
 
 footer a {
-  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #31313142;
+  color: #ffffff;
+  text-decoration: none;
+  border-radius: 2em;
+  padding: 0.5em 1.4em;
+  font-size: 1em;
+  font-weight: 500;
+  margin: 0 0.5em;
+  transition: background 0.18s, color 0.18s, box-shadow 0.18s;
+  box-shadow: 0 2px 12px 0 #ffffff22;
+  border: 1px solid #777777b0;
 }
 
-footer a:hover {
-  text-decoration: underline;
+footer a:hover,
+footer a:focus {
+  background: #5c5c5ca4;
+  color: #fff;
+  box-shadow: 0 4px 24px 0 #ffffff44;
+  border-color: #d4d4d4;
+}
+
+footer span {
+  margin-left: 1.5em;
+  color: #bfc9db;
+  font-size: 0.98em;
+  letter-spacing: 0.02em;
+}
+
+.desc {
+  margin-top: 0;
+  margin-bottom: 0.7em;
 }
 
 .desc p {
-  width: 560px;
+  width: 580px;
   color: rgba(253, 253, 253, 0.514);
+  margin-top: 0.6em;   /* Reduce space above */
+  margin-bottom: 0.5em; /* Optional: control space below */
 }
 
 #uv-address {
@@ -125,18 +166,18 @@ footer a:hover {
   max-width: 90vw;
   padding: 0.7em 1.2em;
   border-radius: 20px;
-  border: 1px solid #ffffff1a;
-  background: #222c;
+  border: 1px solid #e9e5e585;
+  background: rgba(54, 54, 54, 0.459);
   color: #eceff4;
-  font-size: 1.1em;
+  font-size: 1.0em;
   outline: none;
   margin-bottom: 0.5em;
   transition: border 0.2s;
-  text-align: center;
+  text-align: left;
 }
 
 #uv-address:focus {
-  border: 1px solid #5e81ac;
+  border: 1px solid #c9c9c9;
 }
 
 .credit {
@@ -178,65 +219,6 @@ footer a:hover {
 
 .credit input:checked ~ pre {
   display: block;
-}
-
-.floating-navbar {
-  position: fixed;
-  top: 32px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: rgba(40, 44, 52, 0.95);
-  border-radius: 2em;
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.15);
-  padding: 0.5em 2em;
-  display: flex;
-  align-items: center;
-  gap: 2em;
-  z-index: 1000;
-  backdrop-filter: blur(8px);
-  width: max-content;
-  min-width: 340px;
-}
-
-.navbar-brand {
-  display: flex;
-  align-items: center;
-  gap: 0.7em;
-}
-
-.navbar-logo {
-  height: 32px;
-  width: 32px;
-  border-radius: 50%;
-  object-fit: cover;
-  background: #2e3440;
-}
-
-.navbar-title {
-  color: #fff;
-  font-weight: 700;
-  font-size: 1.15em;
-  letter-spacing: 0.03em;
-}
-
-.navbar-links {
-  display: flex;
-  gap: 1.5em;
-}
-
-.floating-navbar .nav-item {
-  color: #fff;
-  text-decoration: none;
-  font-weight: 500;
-  padding: 0.5em 1.2em;
-  border-radius: 1.5em;
-  transition: background 0.2s, color 0.2s;
-}
-
-.floating-navbar .nav-item:hover,
-.floating-navbar .nav-item.active {
-  background: #1e5ca8;
-  color: #fff;
 }
 
 .credits-list {
@@ -374,7 +356,7 @@ footer a:hover {
 
 /* Main Navbar (smaller, compact, centered) */
 .main-navbar {
-  top: 28px;
+  top: 22px;
   left: 50%;
   transform: translateX(-50%);
   background-color: #42424205;
@@ -424,14 +406,14 @@ footer a:hover {
 
 .main-navbar .nav-buttons a:hover,
 .main-navbar .nav-buttons a.active {
-  background: #5e81ac;
+  background: #7272726b;
   color: #fff;
   font-size: 1.08em;
 }
 
 .main-navbar .nav-buttons a.active {
   font-weight: 700;
-  box-shadow: 0 2px 12px 0 #38bdf8;
+  box-shadow: 0 2px 12px 0 #ffffffa2;
 }
 
 .main-navbar .nav-buttons a.disabled {
@@ -514,7 +496,7 @@ footer a:hover {
     inset: 0;
     background-image: var(--stripes), var(--rays);
     background-size: 200%, 100%;
-    animation: god-rays 40s linear infinite;
+    animation: god-rays 7s linear infinite;
     background-attachment: fixed;
     mix-blend-mode: difference;
 }
@@ -533,7 +515,209 @@ footer a:hover {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-height: 80vh;
-  margin-top: 120px; /* space for navbar */
+  min-height: calc(100vh - 120px - 80px); /* 120px for navbar, 80px for footer */
+  margin-top: 11px; /* space for navbar */
+  margin-bottom: 0;
+  padding-bottom: 0;
+  box-sizing: border-box;
   text-align: center;
+}
+
+/* Add to index.css for the home search icon */
+.home-search-icon {
+  position: absolute;
+  left: 17px;
+  top: 43%;
+  transform: translateY(-50%);
+  color: #bfc9db;
+  font-size: 1.15em;
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* Toast base styles - boxy and top right, slightly down from top */
+.toast {
+  position: fixed;
+  top: 40px;
+  right: 40px;
+  left: auto;
+  bottom: auto;
+  transform: none;
+  min-width: 220px;
+  max-width: 90vw;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  padding: 0.9em 1.2em;
+  font-size: 1.08em;
+  font-family: inherit;
+  border-radius: 0.7em; /* less rounded, more boxy */
+  box-shadow: 0 4px 24px #232a3a44;
+  border: 1.5px solid #5e81ac;
+  background: #232a3a;
+  color: #eceff4;
+  opacity: 1;
+  transition: opacity 0.3s, top 0.3s;
+  pointer-events: auto;
+  gap: 0.5em;
+}
+
+.toast.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.toast.hide {
+  opacity: 0;
+  pointer-events: none;
+  top: 20px;
+}
+
+/* Success Toast */
+.toast.success {
+  background: #1e3a2a;
+  color: #d1fae5;
+  border-color: #636363c5;
+}
+.toast.success i {
+  color: #34d399;
+}
+
+/* Error Toast */
+.toast.error {
+  background: #b22234;
+  color: #fff;
+  border-color: #ff4d4f;
+}
+.toast.error i {
+  color: #fff;
+}
+
+/* Info Toast */
+.toast.info {
+  background: #1e293b;
+  color: #bae6fd;
+  border-color: #1364ce;
+}
+.toast.info i {
+  color: #38b0e4;
+}
+
+/* Warning Toast */
+.toast.warning {
+  background: #7c4700;
+  color: #fffbe6;
+  border-color: #fbbf24;
+}
+.toast.warning i {
+  color: #fbbf24;
+}
+
+/* Heart Toast (custom) */
+.toast.heart {
+  background: #2d1e2f;
+  color: #fbcfe8;
+  border-color: #ec4899;
+}
+.toast.heart i {
+  color: #ec4899;
+}
+
+/* Toast close button */
+.toast-close {
+  background: none;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  margin-left: 8px;
+  font-size: 1em;
+  padding: 0;
+  display: flex;
+  align-items: center;
+}
+
+/* Progress bar (optional, style as needed) */
+.progress-bar {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 3px;
+  width: 100%;
+  background: linear-gradient(90deg, #ffffff 0%, #ffffff 100%);
+  border-radius: 0 0 1.1em 1.5em;
+  animation: toast-progress 3s linear forwards;
+  pointer-events: none;
+}
+
+@keyframes toast-progress {
+  from { width: 100%; }
+  to { width: 0%; }
+}
+
+
+/* Make sure your main-content fills the available space */
+.main-content {
+  flex: 1 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  min-height: calc(100vh - 120px - 80px); /* adjust as needed */
+  margin-top: 0.1px;
+  margin-bottom: 0;
+  padding-bottom: 0;
+  box-sizing: border-box;
+}
+
+/* Footer should stay at the bottom */
+footer {
+  margin-top: 1px;
+  width: 93%;
+  align-self: center;
+  height: 1px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1em;
+  padding: 0.2em 0 1.7em 0;
+  background: none;
+  border: none;
+}
+
+/* Remove extra margin from .logo-wrapper and .desc if needed */
+.logo-wrapper.header-center {
+  margin-bottom: 0.5em;
+}
+.desc {
+  margin-top: 0;
+  margin-bottom: 0.7em;
+}
+
+/* NProgress custom styles */
+#nprogress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 0;
+  pointer-events: none;
+  z-index: 9999;
+  overflow: visible;
+}
+
+#nprogress .bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 2px;
+  z-index: 10001;
+}
+
+#nprogress .spinner {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  z-index: 10002;
 }

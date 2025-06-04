@@ -6,7 +6,7 @@ loadingOverlay.style.top = 0;
 loadingOverlay.style.left = 0;
 loadingOverlay.style.width = '100vw';
 loadingOverlay.style.height = '100vh';
-loadingOverlay.style.background = 'rgba(20,24,32,0.97)';
+loadingOverlay.style.background = 'rgba(66, 66, 66, 0.66)';
 loadingOverlay.style.display = 'flex';
 loadingOverlay.style.alignItems = 'center';
 loadingOverlay.style.justifyContent = 'center';
@@ -16,7 +16,7 @@ loadingOverlay.style.transition = 'opacity 0.5s';
 // Simple spinner
 loadingOverlay.innerHTML = `
   <div style="display:flex;flex-direction:column;align-items:center;">
-    <div style="border:6px solid #2563eb;border-top:6px solid #fff;border-radius:50%;width:60px;height:60px;animation:spin 1s linear infinite;"></div>
+    <div style="border:6px solidrgba(80, 80, 80, 0.86);border-top:6px solid #fff;border-radius:50%;width:60px;height:60px;animation:spin 1s linear infinite;"></div>
     <div style="margin-top:1.5rem;color:#fff;font-size:1.2rem;font-weight:600;letter-spacing:0.05em;">Loading...</div>
   </div>
   <style>

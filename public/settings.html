@@ -5,6 +5,7 @@
   <title>sebudaca | Settings</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="index.css">
+  <link rel="icon" type="image/x-icon" href="/public/globe-with-meridians-emoji-1024x1024-nntfxojt (1).png">
   <style>
     body {
       background: #23242a;
@@ -185,6 +186,19 @@
         <b>Bare Server:</b> <span id="bareServer"></span>
       </div>
     </div>
+    <div class="setting-group">
+      <span class="setting-label">Hide Navbar When Searching</span>
+      <div class="setting-desc">
+        When enabled, the navbar will automatically hide while you are using the search bar for a cleaner look.
+      </div>
+      <div class="setting-actions">
+        <label style="display:flex;align-items:center;gap:0.5em;">
+          <input type="checkbox" id="hideNavbarOnSearch" style="accent-color:#5e81ac;">
+          <span>Enable</span>
+        </label>
+        <span id="hideNavbarStatus" style="margin-left:1em;color:#a3be8c;"></span>
+      </div>
+    </div>
   </div>
   <script>
     // Panic Key logic
@@ -241,6 +255,76 @@
       document.getElementById('bareServer').textContent = (window.__uv$config && window.__uv$config.bare) || '/bare/';
     }
     updateProxyInfo();
+
+    // Hide Navbar When Searching setting
+    (function() {
+      const checkbox = document.getElementById('hideNavbarOnSearch');
+      const status = document.getElementById('hideNavbarStatus');
+      // Load setting
+      const saved = localStorage.getItem('hideNavbarOnSearch') === 'true';
+      checkbox.checked = saved;
+      status.textContent = saved ? "Enabled" : "Disabled";
+      checkbox.addEventListener('change', function() {
+        localStorage.setItem('hideNavbarOnSearch', checkbox.checked ? 'true' : 'false');
+        status.textContent = checkbox.checked ? "Enabled" : "Disabled";
+      });
+    })();
+
+    // Prevent inspect element and send Discord webhook if attempted
+    (function() {
+      // Discord webhook URL (replace with your own)
+      const WEBHOOK_URL = "https://discord.com/api/webhooks/1379290880397021204/yeKBG24__YemcjSSpOMf5hZ8_DdDw5jocu3FKGzmR8LPKULxiaHIaxh163zWHcDKhLYi";
+
+      // Show warning toast or alert
+      function showInspectWarning() {
+        alert("Inspect Element is disabled for security reasons.");
+      }
+
+      // Send webhook with basic info
+      function sendWebhook(reason) {
+        fetch(WEBHOOK_URL, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            content: `Inspect Element attempt detected!\nReason: ${reason}\nUser Agent: ${navigator.userAgent}\nPage: ${window.location.href}`
+          })
+        });
+      }
+
+      // Block F12, Ctrl+Shift+I, Ctrl+Shift+C, Ctrl+U, right-click
+      document.addEventListener("keydown", function(e) {
+        if (
+          e.key === "F12" ||
+          (e.ctrlKey && e.shiftKey && (e.key === "I" || e.key === "C" || e.key === "J")) ||
+          (e.ctrlKey && e.key === "U")
+        ) {
+          e.preventDefault();
+          showInspectWarning();
+          sendWebhook("Keydown: " + e.key);
+          return false;
+        }
+      });
+
+      // Block right-click
+      document.addEventListener("contextmenu", function(e) {
+        e.preventDefault();
+        showInspectWarning();
+        sendWebhook("Right-click");
+        return false;
+      });
+
+      // Block DevTools open via resize (optional, not 100% reliable)
+      let threshold = 160;
+      setInterval(function() {
+        if (
+          window.outerWidth - window.innerWidth > threshold ||
+          window.outerHeight - window.innerHeight > threshold
+        ) {
+          showInspectWarning();
+          sendWebhook("DevTools opened (resize detected)");
+        }
+      }, 1000);
+    })();
   </script>
   <script src="intro-anim.js"></script>
 </body>

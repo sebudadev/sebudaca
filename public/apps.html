@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no" />
     <title>sebudaca | Apps</title>
     <link rel="stylesheet" href="index.css" />
+    <link rel="icon" type="image/x-icon" href="/public/globe-with-meridians-emoji-1024x1024-nntfxojt (1).png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
       .apps-container {
@@ -12,27 +13,27 @@
         flex-wrap: wrap;
         gap: 2em;
         justify-content: center;
-        margin: 3em auto;
+        margin: 2em auto;
         max-width: 900px;
       }
       .app-card {
-        background: rgba(40, 44, 52, 0.97);
+        background: rgba(82, 82, 82, 0.363);
         border-radius: 1.2em;
-        box-shadow: 0 2px 12px rgba(0,0,0,0.10);
+        box-shadow: 0 2px 12px rgba(248, 248, 248, 0.178);
         padding: 1.5em 2em;
         display: flex;
         flex-direction: column;
         align-items: center;
-        width: 180px;
+        width: 190px;
         cursor: pointer;
         transition: transform 0.15s, box-shadow 0.15s;
-        border: 1px solid #4c566a;
+        border: 1px solid #ced0d498;
         text-align: center;
       }
       .app-card:hover {
         transform: translateY(-6px) scale(1.04);
         box-shadow: 0 6px 24px rgba(94,129,172,0.18);
-        background: #434c5e;
+        background: #4e4e4e;
       }
       .app-card img {
         width: 64px;
@@ -48,62 +49,40 @@
         font-weight: 600;
         margin-bottom: 0.2em;
       }
-      .navbar {
+      .apps-searchbar-wrapper {
         display: flex;
-        justify-content: space-between;
+        justify-content: center;
         align-items: center;
-        padding: 1em 2em;
-        background: rgba(40, 44, 52, 0.97);
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        z-index: 1000;
-        border-bottom: 1px solid #4c566a;
-      }
-      .main-navbar-title {
-        display: flex;
-        align-items: center;
-        color: #eceff4;
-        font-size: 1.5em;
-        font-weight: 600;
-      }
-      .main-navbar-logo {
-        width: 40px;
-        height: 40px;
-        margin-right: 0.5em;
-      }
-      .nav-buttons {
-        list-style: none;
-        display: flex;
-        gap: 1.5em;
-        margin: 0;
-        padding: 0;
-      }
-      .nav-buttons li {
-        position: relative;
-      }
-      .nav-buttons a {
-        color: #eceff4;
-        text-decoration: none;
-        font-size: 1.2em;
-        transition: color 0.15s;
-      }
-      .nav-buttons a:hover {
-        color: #88c0d0;
-      }
-      .nav-buttons .active {
-        color: #88c0d0;
-        position: relative;
-      }
-      .nav-buttons .active::after {
-        content: '';
-        position: absolute;
+        margin: 2em auto 1em auto;
+        max-width: 400px;
         width: 100%;
-        height: 2px;
-        background: #88c0d0;
-        bottom: -4px;
-        left: 0;
+        position: relative;
+      }
+      #apps-search {
+        flex: 1;
+        width: 100%;
+        padding: 0.7em 1.2em 0.7em 2.5em;
+        border-radius: 2em;
+        border: 1px solid #ced0d498;
+        background: #33333379;
+        color: #eceff4;
+        font-size: 1.08em;
+        outline: none;
+        transition: border 0.2s;
+        text-align: left;
+      }
+      #apps-search:focus {
+        border: 1px solid #8a8a8acc;
+      }
+      .apps-search-icon {
+        position: absolute;
+        left: 18px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #bfc9db;
+        font-size: 1.15em;
+        pointer-events: none;
+        z-index: 2;
       }
     </style>
   </head>
@@ -115,9 +94,13 @@
       </div>
       <ul class="nav-buttons">
         <li><a href="index.html" title="Home"><i class="fa-solid fa-house"></i></a></li>
-        <li><a href="games.html" title="Games"><i class="fa-solid fa-gamepad"></i></a></li>
         <li><a href="apps.html" class="active" title="Apps"><i class="fa-solid fa-th"></i></a></li>
         <li><a href="settings.html" title="Settings"><i class="fa-solid fa-gear"></i></a></li>
+        <li>
+          <a href="ai.html" title="AI">
+            <i class="fa-solid fa-robot"></i>
+          </a>
+        </li>
       </ul>
     </div>
 
@@ -126,6 +109,19 @@
       <p style="color: #bfc9db; font-size: 1.1em; margin-top: 0.5em;">
         Click an app to visit its website.
       </p>
+    </div>
+
+    <div class="apps-searchbar-wrapper" style="position: relative;">
+      <span class="apps-search-icon">
+        <i class="fa-solid fa-magnifying-glass"></i>
+      </span>
+      <input
+        type="text"
+        id="apps-search"
+        placeholder="Search for an app or site..."
+        autocomplete="off"
+        style="padding-left: 2.5em;"
+      />
     </div>
 
     <div class="apps-container">
@@ -142,11 +138,11 @@
         <div class="app-card-title">Spotify</div>
       </div>
       <div class="app-card" onclick="window.location.href='search.html?site=tiktok'">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/6/69/TikTok_logo.svg" alt="TikTok Logo" />
+        <img src="https://upload.wikimedia.org/wikipedia/en/a/a9/TikTok_logo.svg" alt="TikTok Logo" />
         <div class="app-card-title">TikTok</div>
       </div>
       <div class="app-card" onclick="window.location.href='search.html?site=geforce'">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/2/20/Nvidia_logo.svg" alt="GeForce Now Logo" />
+        <img src="https://upload.wikimedia.org/wikipedia/commons/9/94/GeForce_Now_logo.svg" alt="GeForce Now Logo" />
         <div class="app-card-title">GeForce Now</div>
       </div>
       <div class="app-card" onclick="window.location.href='search.html?site=youtube'">
@@ -162,19 +158,19 @@
         <div class="app-card-title">GitHub</div>
       </div>
       <div class="app-card" onclick="window.location.href='search.html?site=discord'">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/9/98/Discord_logo.svg" alt="Discord Logo" />
+        <img src="https://upload.wikimedia.org/wikipedia/fr/4/4f/Discord_Logo_sans_texte.svg" alt="Discord Logo" />
         <div class="app-card-title">Discord</div>
       </div>
       <div class="app-card" onclick="window.location.href='search.html?site=reddit'">
-        <img src="https://upload.wikimedia.org/wikipedia/en/8/82/Reddit_logo_and_wordmark.svg" alt="Reddit Logo" />
+        <img src="https://upload.wikimedia.org/wikipedia/commons/b/b4/Reddit_logo.svg" alt="Reddit Logo" />
         <div class="app-card-title">Reddit</div>
       </div>
       <div class="app-card" onclick="window.location.href='search.html?site=twitch'">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/a/af/Twitch_Glitch_Logo_Purple.svg" alt="Twitch Logo" />
+        <img src="https://upload.wikimedia.org/wikipedia/commons/c/ce/Twitch_logo_2019.svg" alt="Twitch Logo" />
         <div class="app-card-title">Twitch</div>
       </div>
       <div class="app-card" onclick="window.location.href='search.html?site=x'">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/X_logo_2023.svg" alt="X Logo" />
+        <img src="https://upload.wikimedia.org/wikipedia/commons/c/ce/X_logo_2023.svg" alt="X Logo" />
         <div class="app-card-title">X (Twitter)</div>
       </div>
       <div class="app-card" onclick="window.location.href='search.html?site=steam'">
@@ -211,7 +207,121 @@
       </div>
     </div>
 
+    <script>
+      // Simple search/filter for app cards
+      const searchInput = document.getElementById('apps-search');
+      const appCards = Array.from(document.querySelectorAll('.app-card'));
 
-</html>  </body>    <script src="intro-anim.js"></script>
+      function filterApps() {
+        const query = searchInput.value.trim().toLowerCase();
+        appCards.forEach(card => {
+          const title = card.querySelector('.app-card-title').textContent.toLowerCase();
+          const alt = card.querySelector('img').alt.toLowerCase();
+          if (title.includes(query) || alt.includes(query)) {
+            card.style.display = '';
+          } else {
+            card.style.display = 'none';
+          }
+        });
+      }
+
+      searchInput.addEventListener('input', filterApps);
+    </script>
+      <script>
+  // Toast function (copy from your main JS)
+  function showToast(message, type = 'info', iconType = 'game') {
+    const toast = document.createElement('div');
+    toast.className = `toast show ${type}`;
+    const icons = {
+      success: '<i class="fa-solid fa-check-circle" style="margin-right: 8px;"></i>',
+      error:   '<i class="fa-solid fa-times-circle" style="margin-right: 8px;"></i>',
+      info:    '<i class="fa-solid fa-info-circle" style="margin-right: 8px;"></i>',
+      warning: '<i class="fa-solid fa-exclamation-triangle" style="margin-right: 8px;"></i>',
+      game:    '<i class="fa-solid fa-gamepad" style="margin-right: 8px;"></i>',
+      apps:    '<i class="fa-solid fa-th-large" style="margin-right: 8px;"></i>',
+      robot:   '<i class="fa-solid fa-robot" style="margin-right: 8px;"></i>',
+      wave:    '<i class="fa-solid fa-hand-peace" style="margin-right: 8px;"></i>',
+    };
+    toast.innerHTML = `${icons[iconType] || icons.game}${message}`;
+    const progressBar = document.createElement('div');
+    progressBar.className = 'progress-bar';
+    toast.appendChild(progressBar);
+    const closeBtn = document.createElement('button');
+    closeBtn.className = 'toast-close';
+    closeBtn.innerHTML = '<i class="fa-solid fa-xmark" style="margin-left: 8px; font-size: 0.8em;"></i>';
+    closeBtn.addEventListener('click', () => {
+      toast.classList.add('hide');
+      setTimeout(() => toast.remove(), 500);
+    });
+    toast.appendChild(closeBtn);
+    document.body.appendChild(toast);
+    setTimeout(() => {
+      toast.classList.add('hide');
+      setTimeout(() => toast.remove(), 500);
+    }, 3000);
+  }
+
+  // Show a toast when the games page loads
+  window.addEventListener('DOMContentLoaded', function() {
+    showToast("Welcome to the apps page!", "info", "apps");
+  });
+</script>
+<script>
+  // Prevent inspect element and send Discord webhook if attempted
+  (function() {
+    // Discord webhook URL (replace with your own)
+    const WEBHOOK_URL = "https://discord.com/api/webhooks/1379290880397021204/yeKBG24__YemcjSSpOMf5hZ8_DdDw5jocu3FKGzmR8LPKULxiaHIaxh163zWHcDKhLYi";
+
+    // Show warning toast or alert
+    function showInspectWarning() {
+      alert("Inspect Element is disabled for security reasons.");
+    }
+
+    // Send webhook with basic info
+    function sendWebhook(reason) {
+      fetch(WEBHOOK_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          content: `Inspect Element attempt detected!\nReason: ${reason}\nUser Agent: ${navigator.userAgent}\nPage: ${window.location.href}`
+        })
+      });
+    }
+
+    // Block F12, Ctrl+Shift+I, Ctrl+Shift+C, Ctrl+U, right-click
+    document.addEventListener("keydown", function(e) {
+      if (
+        e.key === "F12" ||
+        (e.ctrlKey && e.shiftKey && (e.key === "I" || e.key === "C" || e.key === "J")) ||
+        (e.ctrlKey && e.key === "U")
+      ) {
+        e.preventDefault();
+        showInspectWarning();
+        sendWebhook("Keydown: " + e.key);
+        return false;
+      }
+    });
+
+    // Block right-click
+    document.addEventListener("contextmenu", function(e) {
+      e.preventDefault();
+      showInspectWarning();
+      sendWebhook("Right-click");
+      return false;
+    });
+
+    // Block DevTools open via resize (optional, not 100% reliable)
+    let threshold = 160;
+    setInterval(function() {
+      if (
+        window.outerWidth - window.innerWidth > threshold ||
+        window.outerHeight - window.innerHeight > threshold
+      ) {
+        showInspectWarning();
+        sendWebhook("DevTools opened (resize detected)");
+      }
+    }, 1000);
+  })();
+</script>
   </body>
 </html>
