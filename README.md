@@ -1,31 +1,35 @@
-<p align="center"><img src="https://raw.githubusercontent.com/titaniumnetwork-dev/Ultraviolet-Static/main/public/uv.png" height="200"></p>
+# 🌐 Sebudaca Proxy
 
-<h1 align="center">Ultraviolet-App</h1>
+A sleek and powerful web proxy designed for privacy, unblocking, and simplicity. Built to work with Ultraviolet, Medrins, and custom proxy configurations.
 
-The deployable all-in-one bundle for [Ultraviolet](https://github.com/titaniumnetwork-dev/Ultraviolet), a highly sophisticated proxy used for evading internet censorship or accessing websites in a controlled sandbox using the power of service-workers and more!
+> ⚠️ Sebudaca **cannot be hosted on static platforms** like Netlify or GitHub Pages. You must deploy it on a server that supports backend logic (e.g., Vercel, Railway, Node.js hosting).
 
-## Deployment
+---
 
-[![Run on Replit](https://binbashbanana.github.io/deploy-buttons/buttons/remade/replit.svg)](https://github.com/titaniumnetwork-dev/Ultraviolet-App/wiki/Run-on-Replit)
-[![Deploy on Railway](https://binbashbanana.github.io/deploy-buttons/buttons/remade/railway.svg)](https://github.com/titaniumnetwork-dev/Ultraviolet-App/wiki/Deploy-on-Railway)
-[![Remix on Glitch](https://binbashbanana.github.io/deploy-buttons/buttons/remade/glitch.svg)](https://github.com/titaniumnetwork-dev/Ultraviolet-App/wiki/Remix-on-Glitch)
-[![Deploy to Koyeb](https://binbashbanana.github.io/deploy-buttons/buttons/remade/koyeb.svg)](https://github.com/titaniumnetwork-dev/Ultraviolet-App/wiki/Deploy-to-Koyeb)
+## ✨ Features
 
-If you are deploying to an alternative service or to a server, refer to [Deploy via terminal](https://github.com/titaniumnetwork-dev/Ultraviolet-App/wiki/Deploy-via-terminal).
+- 🔐 Bypass web filters with ease  
+- 🌍 Built-in globe UI with Medrins routing  
+- 🛡️ Supports Ultraviolet XOR and base64 encoding  
+- 💡 Easy-to-read codebase, great for learning  
+- 📱 Mobile-friendly and responsive  
 
-Additional information such as [customizing your frontend](https://github.com/titaniumnetwork-dev/Ultraviolet-App/wiki/Customizing-your-frontend) can be found on the [wiki](https://github.com/titaniumnetwork-dev/Ultraviolet-App/wiki).
+---
 
-Support and updates can be found in our [Discord Server](discord.gg/unblock).
+## 🛠️ Technologies Used
 
-> [!IMPORTANT]  
-> Until deployed on a domain with a valid SSL certificate, Firefox will not be able to load the site. Use chromium for testing on localhost
+- **Ultraviolet** – Core proxy engine  
+- **Node.js / Express** – Backend server  
+- **Medrins** – Location-based proxy routing  
+- **HTML / CSS** – Minimal UI with globe styling  
+- **JavaScript** – Frontend interactivity
 
-### HTTP Transport
+---
 
-The example uses [EpoxyTransport](https://github.com/MercuryWorkshop/EpoxyTransport) to fetch proxied data encrypted.
+## 🚀 Getting Started
 
-You may also want to use [CurlTransport](https://github.com/MercuryWorkshop/CurlTransport), a different way of fetching encrypted data, or [Bare-Client](https://github.com/MercuryWorkshop/Bare-as-module3), the legacy (unencrypted!) transport.
+### 1. Clone the Repo
 
-See the [bare-mux](https://github.com/MercuryWorkshop/bare-mux) documentation for more information.
-"# sebuddaca12" 
-"# sebuddaca12" 
+```bash
+git clone https://github.com/yourusername/sebudaca.git
+cd sebudaca
