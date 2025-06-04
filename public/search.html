@@ -296,14 +296,14 @@ document.addEventListener('DOMContentLoaded', function() {
   function goTo(targetUrl) {
     if (!targetUrl) return;
     iframe.src = window.__uv$config.prefix + window.__uv$config.encodeUrl(targetUrl);
-    searchInput.value = targetUrl;
+    searchInput.value = targetUrl; // <-- This sets the search bar value
   }
 
   // If loaded from index.html with a url param, go to that site
   if (urlParam) {
-    goTo(urlParam);
+    goTo(urlParam); // This will set the search bar value
   } else if (url) {
-    goTo(url);
+    goTo(url); // This will set the search bar value for app shortcuts
   }
 
   // Search bar logic: on Enter, proxy the URL or search
@@ -359,7 +359,7 @@ document.addEventListener('DOMContentLoaded', function() {
   function goTo(targetUrl) {
     if (!targetUrl) return;
     iframe.src = window.__uv$config.prefix + window.__uv$config.encodeUrl(targetUrl);
-    searchInput.value = targetUrl;
+    searchInput.value = targetUrl; // <-- This sets the search bar value
     updateLockIcon(targetUrl);
   }
 
@@ -372,8 +372,16 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // When a search is performed:
   function doSearch(query) {
-    // ...your search logic...
-    // Update the URL without reloading the page
+    if (!query) return;
+    // If not a URL, treat as search
+    let val = query.trim();
+    if (!/^https?:\/\//.test(val) && !val.includes('.')) {
+      val = 'https://duckduckgo.com/?q=' + encodeURIComponent(val);
+    } else if (!/^https?:\/\//.test(val)) {
+      val = 'https://' + val;
+    }
+    goTo(val);
+    searchInput.value = query; // <-- Show the original query in the bar
     history.pushState({ query }, '', '?q=' + encodeURIComponent(query));
   }
 
