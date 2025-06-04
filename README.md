@@ -1,8 +1,8 @@
-# 🌐 Sebudaca Proxy
+# 🌐 sebudaca Proxy
 
 A sleek and powerful web proxy designed for privacy, unblocking, and simplicity. Built to work with Ultraviolet, Medrins, and custom proxy configurations.
 
-> ⚠️ Sebudaca **cannot be hosted on static platforms** like Netlify or GitHub Pages. You must deploy it on a server that supports backend logic (e.g., Vercel, Railway, Node.js hosting).
+> ⚠️ sebudaca **cannot be hosted on static platforms** like Netlify or GitHub Pages. You must deploy it on a server that supports backend logic (e.g., Vercel, Railway, Node.js hosting).
 
 ---
 
@@ -12,7 +12,6 @@ A sleek and powerful web proxy designed for privacy, unblocking, and simplicity.
 - 🌍 Built-in globe UI with Medrins routing  
 - 🛡️ Supports Ultraviolet XOR and base64 encoding  
 - 💡 Easy-to-read codebase, great for learning  
-- 📱 Mobile-friendly and responsive  
 
 ---
 
