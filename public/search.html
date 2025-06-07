@@ -242,26 +242,22 @@
     <script src="uv/uv.config.js" defer></script>
     <script src="register-sw.js" defer></script>
     <script src="uv/uv.handler.js"></script>
-    <script src="index.js"></script>
-    <script src="error.js"></script>
-    <script src="loading.js"></script>
+    <script src="/src/index.js"></script>
+    <script src="/assets/js/error.js"></script>
+    <script src="/assets/js/loading.js"></script>
     <!-- Then your inline script above -->
     <script>
 document.addEventListener('DOMContentLoaded', function() {
-  // Check if UV scripts are loaded
+  // Ensure UV config is loaded
   if (!window.__uv$config || typeof window.__uv$config.encodeUrl !== 'function') {
-    // If error.js exists, use it to redirect to 404
-    if (typeof window.show404 === 'function') {
-      window.show404();
-    } else {
-      window.location.href = '404.html';
-    }
+    window.location.href = '404.html';
     return;
   }
 
   const params = new URLSearchParams(window.location.search);
   const urlParam = params.get('url');
   const site = params.get('site');
+  const queryParam = params.get('q');
   let url = '';
 
   // App shortcuts
@@ -292,18 +288,20 @@ document.addEventListener('DOMContentLoaded', function() {
   const iframe = document.getElementById('cool-iframe');
   const searchInput = document.getElementById('searchInputt');
 
-  // Helper: encode and set iframe src via UV
   function goTo(targetUrl) {
     if (!targetUrl) return;
     iframe.src = window.__uv$config.prefix + window.__uv$config.encodeUrl(targetUrl);
-    searchInput.value = targetUrl; // <-- This sets the search bar value
+    searchInput.value = targetUrl;
+    updateLockIcon(targetUrl);
   }
 
-  // If loaded from index.html with a url param, go to that site
+  // On page load, handle url, site, or q param
   if (urlParam) {
-    goTo(urlParam); // This will set the search bar value
+    goTo(urlParam);
   } else if (url) {
-    goTo(url); // This will set the search bar value for app shortcuts
+    goTo(url);
+  } else if (queryParam) {
+    doSearch(queryParam);
   }
 
   // Search bar logic: on Enter, proxy the URL or search
@@ -320,14 +318,31 @@ document.addEventListener('DOMContentLoaded', function() {
           val = 'https://' + val;
         }
         goTo(val);
+        history.pushState({ query: searchInput.value }, '', '?q=' + encodeURIComponent(searchInput.value));
       }
     });
-  } else {
-    // If search bar is missing, redirect to 404
-    window.location.href = '404.html';
   }
 
-  // Lock SVG logic
+  // Listen for back/forward navigation
+  window.addEventListener('popstate', function(event) {
+    const params = new URLSearchParams(window.location.search);
+    const query = params.get('q') || '';
+    doSearch(query);
+  });
+
+  function doSearch(query) {
+    if (!query) return;
+    let val = query.trim();
+    if (!/^https?:\/\//.test(val) && !val.includes('.')) {
+      val = 'https://duckduckgo.com/?q=' + encodeURIComponent(val);
+    } else if (!/^https?:\/\//.test(val)) {
+      val = 'https://' + val;
+    }
+    goTo(val);
+    searchInput.value = query;
+  }
+
+  // Lock icon logic (unchanged)
   const lockIndicator = document.getElementById('lock-indicator');
   const lockSvg = document.getElementById('lock-svg');
   function updateLockIcon(url) {
@@ -354,54 +369,6 @@ document.addEventListener('DOMContentLoaded', function() {
       lockIndicator.title = "Warning: Connection is not secure";
     }
   }
-
-  // Update lock icon on navigation
-  function goTo(targetUrl) {
-    if (!targetUrl) return;
-    iframe.src = window.__uv$config.prefix + window.__uv$config.encodeUrl(targetUrl);
-    searchInput.value = targetUrl; // <-- This sets the search bar value
-    updateLockIcon(targetUrl);
-  }
-
-  // Also update lock icon on manual input change (optional)
-  if (searchInput) {
-    searchInput.addEventListener('input', function() {
-      updateLockIcon(searchInput.value.trim());
-    });
-  }
-
-  // When a search is performed:
-  function doSearch(query) {
-    if (!query) return;
-    // If not a URL, treat as search
-    let val = query.trim();
-    if (!/^https?:\/\//.test(val) && !val.includes('.')) {
-      val = 'https://duckduckgo.com/?q=' + encodeURIComponent(val);
-    } else if (!/^https?:\/\//.test(val)) {
-      val = 'https://' + val;
-    }
-    goTo(val);
-    searchInput.value = query; // <-- Show the original query in the bar
-    history.pushState({ query }, '', '?q=' + encodeURIComponent(query));
-  }
-
-  // Listen for back/forward navigation
-  window.addEventListener('popstate', function(event) {
-    // event.state contains the state object passed to pushState
-    const params = new URLSearchParams(window.location.search);
-    const query = params.get('q') || '';
-    // Re-run your search logic with the query from the URL
-    doSearch(query);
-  });
-
-  // On page load, check if there's a query in the URL
-  window.addEventListener('DOMContentLoaded', function() {
-    const params = new URLSearchParams(window.location.search);
-    const query = params.get('q');
-    if (query) {
-      doSearch(query);
-    }
-  });
 });
     </script>
     <script src="search-nav.js"></script>
