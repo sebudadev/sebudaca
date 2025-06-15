@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no" />
+    <title>sebudaca | Search</title>
+    <link rel="stylesheet" href="index.css" />
+    <link rel="icon" type="image/x-icon" href="/public/globe-with-meridians-emoji-1024x1024-nntfxojt (1).png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      }
+
+      body {
+        background: linear-gradient(135deg, #1a1a1a, #2d2d2d);
+        min-height: 100vh;
+        color: white;
+      }
+
+      .home-navbar {
+        transform: translateX(-50%);
+        width: 670px;
+        top: 1%;
+        margin-bottom: -10px;
+        margin-left: 50%;
+        background-color: #08080894;
+        border: 1px solid #ffffff21;
+        height: 35px;
+        color: #818181;
+        padding: 10px;
+        text-align: center;
+        font-size: 18px;
+        font-weight: bold;
+        z-index: 1001;
+        backdrop-filter: blur(5px);
+        border-radius: 25px;
+        position: fixed;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transition: transform 0.3s ease;
+      }
+
+      .home-navbar .favicon {
+        width: 24px;
+        height: 24px;
+        margin-right: -10px;
+        vertical-align: middle;
+      }
+
+      .home-navbar a {
+        color: #7c7c7c;
+        text-decoration: none;
+        padding: 8px 16px;
+        font-size: 14px;
+        font-weight: 300;
+        border-radius: 5px;
+        position: relative;
+        transition: all 0.3s ease;
+      }
+
+      .home-navbar a:hover {
+        color: #bbbbbb;
+        font-size: 16px;
+      }
+
+      .home-navbar a:active {
+        font-size: 12px;
+      }
+
+      .home-navbar i {
+        color: #ffffff; 
+        margin-right: -15px;
+        margin-left: 115px;
+      }
+
+      .navbar {
+        top: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: #42424205;
+        backdrop-filter: blur(10px);
+        border: 1px solid #ffffff5b;
+        width: 900px;
+        max-width: 98vw;
+        display: block;
+        border-radius: 25px;
+        align-items: center;
+        overflow: hidden;
+        position: fixed;
+        z-index: 999;
+        animation: fadeIn 0.3s ease;
+        padding: 0.5em 1em;
+      }
+      .nav-buttons {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5em;
+      }
+      .nav-buttons li {
+        display: flex;
+        align-items: center;
+      }
+      .nav-buttons a {
+        color: #eceff4;
+        text-decoration: none;
+        padding: 0.4em 0.7em;
+        border-radius: 1em;
+        transition: background 0.15s, color 0.15s, font-size 0.15s;
+        font-size: 1.1em;
+        display: flex;
+        align-items: center;
+      }
+      .nav-buttons a:hover, .nav-buttons a.active {
+        background: #3b3b3bb7;
+        color: #fff;
+        font-size: 1.18em;
+      }
+      .nav-buttons a.disabled {
+        opacity: 0.5;
+        pointer-events: none;
+      }
+      .small-searchbar {
+        display: flex;
+        align-items: center;
+        background: #555555b2;
+        border-radius: 1.2em;
+        padding: 0.2em 0.7em;
+        min-width: 228px;
+        max-width: 320px;
+        margin: 0 0.5em;
+        position: relative;
+      }
+      .small-searchbar #lock-indicator {
+        position: absolute;
+        left: 0.9em;
+        top: 50%;
+        transform: translateY(-60%);
+        display: flex;
+        align-items: center;
+        z-index: 2;
+      }
+      .small-searchbar #lock-svg {
+        position: static;
+      }
+      .small-searchbar input {
+        background: transparent;
+        border: none;
+        color: #eceff4;
+        font-size: 1em;
+        width: 100%;
+        outline: none;
+        padding-left: 1.6em !important;
+      }
+      .small-searchbar svg {
+        position: absolute;
+        left: 0.7em;
+        color: #bfc9db;
+        font-size: 1em;
+        width: 1em;
+        height: 1em;
+      }
+      .shortcut-indicator-2 {
+        font-size: 0.8em;
+        color: #bfc9db;
+        margin-left: 0.5em;
+        white-space: nowrap;
+      }
+      .iframe-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        z-index: 1;
+        background: #222;
+      }
+      #cool-iframe {
+        width: 100vw;
+        height: 100vh;
+        border: none;
+        background: #222;
+        display: block;
+      }
+      @media (max-width: 1000px) {
+        .navbar {
+          width: 99vw;
+          min-width: 0;
+          padding: 0.2em 0.2em;
+        }
+        .small-searchbar {
+          min-width: 120px;
+          max-width: 180px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="navbar" style="display: block;">
+      <ul class="nav-buttons">
+        <li><a id="backIcon" href="#" class="disabled" title="Back"><i class="fa-solid fa-arrow-left"></i></a></li>
+        <li><a id="refreshIcon" href="#" title="Refresh"><i class="fa-solid fa-rotate-right"></i></a></li>
+        <li><a id="forwardIcon" href="#" class="disabled" title="Forward"><i class="fa-solid fa-arrow-right"></i></a></li>
+        <li><a id="fullscreenIcon" href="#" title="Fullscreen"><i class="fa-solid fa-expand"></i></a></li>
+        <li>
+          <div class="small-searchbar" style="position: relative;">
+            <span id="lock-indicator" title="Connection is secure">
+              <svg id="lock-svg" viewBox="0 0 24 24" width="16" height="16">
+                <path d="M17 11V7a5 5 0 0 0-10 0v4" stroke="#4caf50" stroke-width="2" fill="none"/>
+                <rect x="5" y="11" width="14" height="10" rx="2" stroke="#4caf50" stroke-width="2" fill="none"/>
+              </svg>
+            </span>
+            <input class="waves" type="text" id="searchInputt" placeholder="Search for a query or enter a URL..." autocomplete="off" style="padding-left: 40px;">
+            <span class="shortcut-indicator-2">Ctrl + S</span>
+          </div>
+        </li>
+        <li><a href="index.html" title="Home"><i class="fa-solid fa-house"></i></a></li>
+        <li><a href="apps.html" title="Apps"><i class="fa-solid fa-th"></i></a></li>
+        <li><a id="erudaIcon" href="#" title="Dev Tools"><i class="fa-solid fa-code"></i></a></li>
+      </ul>
+    </div>
+    <div class="iframe-container">
+      <iframe id="cool-iframe"></iframe>
+    </div>
+    <form id="uv-form" autocomplete="off">
+      <input id="uv-address" type="text" placeholder="Search or enter URL..." autocomplete="off" />
+      <button type="submit" style="display:none">Go</button>
+    </form>
+    <p id="uv-error"></p>
+    <pre id="uv-error-code"></pre>
+    <!-- Ultraviolet scripts first -->
+    <script src="uv/uv.bundle.js" defer></script>
+    <script src="uv/uv.config.js" defer></script>
+    <script src="register-sw.js" defer></script>
+    <script src="uv/uv.handler.js"></script>
+    <script src="/src/index.js"></script>
+    <script src="/assets/js/error.js"></script>
+    <script src="/assets/js/loading.js"></script>
+    <!-- Then your inline script above -->
+    <script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Ensure UV config is loaded
+  if (!window.__uv$config || typeof window.__uv$config.encodeUrl !== 'function') {
+    window.location.href = '404.html';
+    return;
+  }
+
+  const iframe = document.getElementById('cool-iframe');
+  const searchInput = document.getElementById('searchInputt');
+
+  // Check localStorage for proxy-url
+  let url = localStorage.getItem('proxy-url');
+  if (url) {
+    localStorage.removeItem('proxy-url');
+    goTo(url);
+    searchInput.value = url;
+    history.replaceState({}, '', '?q=' + encodeURIComponent(url));
+  } else {
+    const params = new URLSearchParams(window.location.search);
+    const urlParam = params.get('url');
+    const site = params.get('site');
+    const queryParam = params.get('q');
+    let url = '';
+
+    // App shortcuts
+    switch (site) {
+      case 'duckduckgo': url = 'https://duckduckgo.com'; break;
+      case 'wikipedia': url = 'https://www.wikipedia.org'; break;
+      case 'spotify': url = 'https://open.spotify.com'; break;
+      case 'tiktok': url = 'https://www.tiktok.com'; break;
+      case 'geforce': url = 'https://play.geforcenow.com'; break;
+      case 'youtube': url = 'https://www.youtube.com'; break;
+      case 'google': url = 'https://www.google.com'; break;
+      case 'github': url = 'https://github.com'; break;
+      case 'discord': url = 'https://discord.com/app'; break;
+      case 'reddit': url = 'https://www.reddit.com'; break;
+      case 'twitch': url = 'https://www.twitch.tv'; break;
+      case 'x': url = 'https://x.com'; break;
+      case 'steam': url = 'https://store.steampowered.com'; break;
+      case 'facebook': url = 'https://www.facebook.com'; break;
+      case 'instagram': url = 'https://www.instagram.com'; break;
+      case 'pinterest': url = 'https://www.pinterest.com'; break;
+      case 'linkedin': url = 'https://www.linkedin.com'; break;
+      case 'gmail': url = 'https://mail.google.com'; break;
+      case 'outlook': url = 'https://outlook.live.com'; break;
+      case 'amazon': url = 'https://www.amazon.com'; break;
+      default: url = '';
+    }
+
+    function goTo(targetUrl) {
+      if (!targetUrl) return;
+      iframe.src = window.__uv$config.prefix + window.__uv$config.encodeUrl(targetUrl);
+      searchInput.value = targetUrl;
+      updateLockIcon(targetUrl);
+    }
+
+    // On page load, handle url, site, or q param
+    if (urlParam) {
+      goTo(urlParam);
+    } else if (url) {
+      goTo(url);
+    } else if (queryParam) {
+      doSearch(queryParam);
+    }
+
+    // Search bar logic: on Enter, proxy the URL or search
+    if (searchInput) {
+      searchInput.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          let val = searchInput.value.trim();
+          if (!val) return;
+          // If not a URL, treat as search
+          if (!/^https?:\/\//.test(val) && !val.includes('.')) {
+            val = 'https://duckduckgo.com/?q=' + encodeURIComponent(val);
+          } else if (!/^https?:\/\//.test(val)) {
+            val = 'https://' + val;
+          }
+          goTo(val);
+          history.pushState({ query: searchInput.value }, '', '?q=' + encodeURIComponent(searchInput.value));
+        }
+      });
+    }
+
+    // Listen for back/forward navigation
+    window.addEventListener('popstate', function(event) {
+      const params = new URLSearchParams(window.location.search);
+      const query = params.get('q') || '';
+      doSearch(query);
+    });
+
+    function doSearch(query) {
+      if (!query) return;
+      let val = query.trim();
+      if (!/^https?:\/\//.test(val) && !val.includes('.')) {
+        val = 'https://duckduckgo.com/?q=' + encodeURIComponent(val);
+      } else if (!/^https?:\/\//.test(val)) {
+        val = 'https://' + val;
+      }
+      goTo(val);
+      searchInput.value = query;
+    }
+
+    // Lock icon logic (unchanged)
+    const lockIndicator = document.getElementById('lock-indicator');
+    const lockSvg = document.getElementById('lock-svg');
+    function updateLockIcon(url) {
+      let isSecure = false;
+      try {
+        const u = new URL(url);
+        isSecure = u.protocol === 'https:';
+      } catch {
+        isSecure = false;
+      }
+      if (isSecure) {
+        lockSvg.innerHTML = `
+          <path d="M17 11V7a5 5 0 0 0-10 0v4" stroke="#4caf50" stroke-width="2" fill="none"/>
+          <rect x="5" y="11" width="14" height="10" rx="2" stroke="#4caf50" stroke-width="2" fill="none"/>
+        `;
+        lockIndicator.title = "Connection is secure";
+      } else {
+        lockSvg.innerHTML = `
+          <path d="M7 11V7a5 5 0 0 1 10 0v4" stroke="#ff9800" stroke-width="2" fill="none"/>
+          <rect x="5" y="11" width="14" height="10" rx="2" stroke="#ff9800" stroke-width="2" fill="none"/>
+          <line x1="12" y1="17" x2="12" y2="15" stroke="#ff9800" stroke-width="2"/>
+          <circle cx="12" cy="18" r="1" fill="#ff9800"/>
+        `;
+        lockIndicator.title = "Warning: Connection is not secure";
+      }
+    }
+  }
+});
+    </script>
+    <script src="search-nav.js"></script>
+    <script>
+// Prevent inspect element and send Discord webhook if attempted
+(function() {
+  // Discord webhook URL (replace with your own)
+  const WEBHOOK_URL = "https://discord.com/api/webhooks/1379290880397021204/yeKBG24__YemcjSSpOMf5hZ8_DdDw5jocu3FKGzmR8LPKULxiaHIaxh163zWHcDKhLYi";
+
+  // Show warning toast or alert
+  function showInspectWarning() {
+    alert("Inspect Element is disabled for security reasons.");
+  }
+
+  // Send webhook with basic info
+  function sendWebhook(reason) {
+    fetch(WEBHOOK_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        content: `Inspect Element attempt detected!\nReason: ${reason}\nUser Agent: ${navigator.userAgent}\nPage: ${window.location.href}`
+      })
+    });
+  }
+
+  // Block F12, Ctrl+Shift+I, Ctrl+Shift+C, Ctrl+U, right-click
+  document.addEventListener("keydown", function(e) {
+    if (
+      e.key === "F12" ||
+      (e.ctrlKey && e.shiftKey && (e.key === "I" || e.key === "C" || e.key === "J")) ||
+      (e.ctrlKey && e.key === "U")
+    ) {
+      e.preventDefault();
+      showInspectWarning();
+      sendWebhook("Keydown: " + e.key);
+      return false;
+    }
+  });
+
+  // Block right-click
+  document.addEventListener("contextmenu", function(e) {
+    e.preventDefault();
+    showInspectWarning();
+    sendWebhook("Right-click");
+    return false;
+  });
+
+  // Block DevTools open via resize (optional, not 100% reliable)
+  let threshold = 160;
+  setInterval(function() {
+    if (
+      window.outerWidth - window.innerWidth > threshold ||
+      window.outerHeight - window.innerHeight > threshold
+    ) {
+      showInspectWarning();
+      sendWebhook("DevTools opened (resize detected)");
+    }
+  }, 1000);
+})();
+    </script>
+  </body>
+</html>
